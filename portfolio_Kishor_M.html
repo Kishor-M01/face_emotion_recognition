@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kishor M — Portfolio</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0d;
+      --surface: #161616;
+      --card: #1e1e1e;
+      --border: #2a2a2a;
+      --accent: #7c3aed;
+      --accent2: #06b6d4;
+      --text: #e5e5e5;
+      --muted: #888;
+    }
+
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,13,13,0.88); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 2rem;
+    }
+    .nav-logo { font-weight: 700; font-size: 1.1rem; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 1.8rem; font-size: 0.9rem; color: var(--muted); }
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      min-height: 92vh; display: flex; flex-direction: column;
+      justify-content: center; align-items: center; text-align: center;
+      padding: 4rem 2rem;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,0.12) 0%, transparent 70%);
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.35);
+      color: #a78bfa; font-size: 0.78rem; letter-spacing: 1.5px;
+      text-transform: uppercase; padding: 0.35rem 1rem; border-radius: 999px; margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 800;
+      letter-spacing: -1px; line-height: 1.1; margin-bottom: 1rem;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero p { max-width: 580px; color: var(--muted); font-size: 1rem; margin-bottom: 1.2rem; }
+    .hero-contact {
+      display: flex; gap: 1.2rem; flex-wrap: wrap; justify-content: center;
+      font-size: 0.82rem; color: var(--muted); margin-bottom: 2rem;
+    }
+    .hero-contact span { display: flex; align-items: center; gap: 0.3rem; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .btn {
+      padding: 0.65rem 1.6rem; border-radius: 8px; font-size: 0.9rem;
+      font-weight: 600; cursor: pointer; transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-outline { border: 1px solid var(--border); color: var(--text); background: transparent; }
+    .tech-strip { margin-top: 3rem; display: flex; gap: 0.6rem; flex-wrap: wrap; justify-content: center; }
+    .tag {
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--muted); font-size: 0.78rem; padding: 0.3rem 0.75rem; border-radius: 6px;
+    }
+
+    /* SECTIONS */
+    section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .section-label { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .section-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; margin-bottom: 0.6rem; }
+    .section-sub { color: var(--muted); max-width: 540px; margin-bottom: 3rem; font-size: 0.95rem; }
+
+    /* STATS */
+    .stats-row {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem; margin-bottom: 4rem;
+    }
+    .stat-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.4rem; text-align: center;
+    }
+    .stat-card .num { font-size: 1.9rem; font-weight: 800; color: var(--accent); }
+    .stat-card .label { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
+
+    /* EXPERIENCE */
+    .timeline { display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 4rem; }
+    .timeline-item {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.6rem;
+      border-left: 3px solid var(--accent);
+    }
+    .timeline-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.8rem; }
+    .timeline-header h3 { font-size: 1rem; font-weight: 700; }
+    .timeline-header .company { color: var(--accent2); font-size: 0.85rem; margin-top: 0.15rem; }
+    .timeline-date { font-size: 0.78rem; color: var(--muted); background: var(--surface); padding: 0.25rem 0.7rem; border-radius: 6px; white-space: nowrap; }
+    .timeline-item ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+    .timeline-item li { font-size: 0.88rem; color: var(--muted); padding-left: 1rem; position: relative; }
+    .timeline-item li::before { content: "▸"; position: absolute; left: 0; color: var(--accent); }
+
+    /* PROJECTS */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .project-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.8rem; display: flex; flex-direction: column;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .project-icon { width: 46px; height: 46px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 1.2rem; }
+    .project-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .project-card p { color: var(--muted); font-size: 0.87rem; flex: 1; margin-bottom: 1.4rem; }
+    .project-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.4rem; }
+    .project-tag {
+      font-size: 0.72rem; padding: 0.2rem 0.6rem; border-radius: 5px;
+      background: rgba(124,58,237,0.12); border: 1px solid rgba(124,58,237,0.25); color: #a78bfa;
+    }
+    .project-links { display: flex; gap: 0.8rem; }
+    .project-link {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.82rem; color: var(--muted); border: 1px solid var(--border);
+      padding: 0.35rem 0.85rem; border-radius: 7px; transition: color 0.2s, border-color 0.2s;
+    }
+    .project-link:hover { color: var(--text); border-color: var(--accent2); }
+
+    /* SKILLS */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+    .skill-group { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem; }
+    .skill-group h4 { font-size: 0.85rem; color: var(--accent2); margin-bottom: 0.8rem; letter-spacing: 0.5px; }
+    .skill-group ul { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+    .skill-group li { font-size: 0.88rem; color: var(--muted); }
+    .skill-group li::before { content: "▸ "; color: var(--accent); }
+
+    /* EDUCATION */
+    .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 3rem; }
+    .edu-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem;
+      border-top: 3px solid var(--accent2);
+    }
+    .edu-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .edu-card .school { font-size: 0.82rem; color: var(--accent2); margin-bottom: 0.5rem; }
+    .edu-card .meta { font-size: 0.78rem; color: var(--muted); }
+    .edu-card .score { font-size: 1.1rem; font-weight: 700; color: var(--accent); margin-top: 0.5rem; }
+
+    /* CERTIFICATIONS */
+    .cert-list { display: flex; flex-direction: column; gap: 0.8rem; }
+    .cert-item {
+      background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+      padding: 1rem 1.4rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;
+    }
+    .cert-item span { font-size: 0.88rem; }
+    .cert-item .cert-date { font-size: 0.78rem; color: var(--muted); background: var(--surface); padding: 0.2rem 0.6rem; border-radius: 5px; }
+
+    /* CONTACT */
+    .contact-box {
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 3rem; text-align: center;
+      background: linear-gradient(135deg, rgba(124,58,237,0.08) 0%, rgba(6,182,212,0.05) 100%);
+    }
+    .contact-box h3 { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.6rem; }
+    .contact-box p { color: var(--muted); margin-bottom: 2rem; }
+    .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .contact-link {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 0.6rem 1.3rem; border-radius: 9px; font-size: 0.88rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .contact-link:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+    footer { border-top: 1px solid var(--border); text-align: center; padding: 2rem; color: var(--muted); font-size: 0.82rem; }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+      .contact-box { padding: 2rem 1.2rem; }
+      .timeline-header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Kishor<span>.</span>M</div>
+  <div class="nav-links">
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Data Analytics &amp; AI/ML Engineer</div>
+  <h1>Turning <span>Raw Data</span><br/>Into Actionable<br/>Intelligence</h1>
+  <p>Detail-oriented engineer with hands-on experience in data analytics, computer vision, and NLP. CGPA 9.01 · Bengaluru (Ready to Relocate)</p>
+  <div class="hero-contact">
+    <span>📍 Bengaluru</span>
+    <span>📞 +91 6361532124</span>
+    <span>✉ kishor.m.kittu@gmail.com</span>
+  </div>
+  <div class="hero-btns">
+    <a href="#projects" class="btn btn-primary">View Projects</a>
+    <a href="https://github.com/Kishor-M01" target="_blank" rel="noopener noreferrer" class="btn btn-outline">GitHub ↗</a>
+    <a href="https://linkedin.com/in/kishorm-8a2715352" target="_blank" rel="noopener noreferrer" class="btn btn-outline">LinkedIn ↗</a>
+  </div>
+  <div class="tech-strip">
+    <span class="tag">Python</span>
+    <span class="tag">Power BI</span>
+    <span class="tag">Tableau</span>
+    <span class="tag">TensorFlow</span>
+    <span class="tag">OpenCV</span>
+    <span class="tag">SQL</span>
+    <span class="tag">GCP</span>
+    <span class="tag">Transformers</span>
+  </div>
+</div>
+
+<!-- STATS -->
+<section>
+  <div class="stats-row">
+    <div class="stat-card"><div class="num">9.01</div><div class="label">CGPA (B.E. ISE)</div></div>
+    <div class="stat-card"><div class="num">4</div><div class="label">AI/ML Projects</div></div>
+    <div class="stat-card"><div class="num">~72%</div><div class="label">Emotion Model Accuracy</div></div>
+    <div class="stat-card"><div class="num">3</div><div class="label">Certifications</div></div>
+    <div class="stat-card"><div class="num">30 FPS</div><div class="label">Real-time CPU Inference</div></div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div id="experience">
+    <div class="section-label">Experience</div>
+    <div class="section-title">Professional Experience</div>
+    <p class="section-sub">Internships applying data analytics and full-stack development in real-world environments.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <div>
+          <h3>Data Visualization &amp; Analytics Intern</h3>
+          <div class="company">SR Innovative Technologies</div>
+        </div>
+        <span class="timeline-date">2026</span>
+      </div>
+      <ul>
+        <li>Applied data-driven methodologies to clean, transform, and visualize complex datasets for business stakeholders.</li>
+        <li>Developed automated analytical reports using modern visualization tools, bridging raw data and actionable insights.</li>
+        <li>Identified underlying data trends and patterns to optimize internal reporting workflows and decision frameworks.</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-header">
+        <div>
+          <h3>Full Stack Development Intern</h3>
+          <div class="company">Acmegrade</div>
+        </div>
+        <span class="timeline-date">2024</span>
+      </div>
+      <ul>
+        <li>Handled API integration, testing, and debugging within a collaborative development environment.</li>
+        <li>Built technical problem-solving skills for handling production data and understanding system architectures.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- PROJECTS -->
+  <div id="projects">
+    <div class="section-label">Work</div>
+    <div class="section-title">Featured Projects</div>
+    <p class="section-sub">End-to-end AI applications spanning computer vision, data analytics, generative art, and multilingual NLP.</p>
+  </div>
+
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-icon" style="background:rgba(124,58,237,0.15);">😶</div>
+      <h3>Face Emotion Recognition</h3>
+      <p>Engineered a low-latency real-time video pipeline for behavioral analysis. Implemented end-to-end preprocessing and classification using MobileNetV2 transfer learning on FER2013. Achieves ~68–72% accuracy on CPU — on par with human-level performance. Detects 7 emotions live via webcam.</p>
+      <div class="project-tags">
+        <span class="project-tag">TensorFlow</span>
+        <span class="project-tag">MobileNetV2</span>
+        <span class="project-tag">OpenCV</span>
+        <span class="project-tag">Transfer Learning</span>
+        <span class="project-tag">FER2013</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/Kishor-M01/face_emotion_recognition" target="_blank" rel="noopener noreferrer" class="project-link">⬡ GitHub</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon" style="background:rgba(6,182,212,0.12);">✏️</div>
+      <h3>AI Sketch App</h3>
+      <p>AI-powered application that transforms images or live webcam feed into pencil-sketch style artwork in real time. Combines computer vision and generative image processing techniques for interactive artistic output.</p>
+      <div class="project-tags">
+        <span class="project-tag">Python</span>
+        <span class="project-tag">OpenCV</span>
+        <span class="project-tag">Computer Vision</span>
+        <span class="project-tag">Generative AI</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/Kishor-M01/AI_Sketch_App" target="_blank" rel="noopener noreferrer" class="project-link">⬡ GitHub</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon" style="background:rgba(245,158,11,0.12);">📊</div>
+      <h3>Indian Crime Analysis</h3>
+      <p>Data analytics project exploring crime patterns across Indian states using real government datasets. Performs end-to-end data cleaning, transformation, and visualization to uncover trends, hotspots, and year-over-year changes in crime statistics.</p>
+      <div class="project-tags">
+        <span class="project-tag">Python</span>
+        <span class="project-tag">Pandas</span>
+        <span class="project-tag">Data Analytics</span>
+        <span class="project-tag">Matplotlib</span>
+        <span class="project-tag">EDA</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/Kishor-M01/Indian_crime_Analysis" target="_blank" rel="noopener noreferrer" class="project-link">⬡ GitHub</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon" style="background:rgba(16,185,129,0.12);">💬</div>
+      <h3>Multi-Lingual Chatbot</h3>
+      <p>Applied modern NLP techniques to handle, parse, and analyze diverse text inputs across multiple languages. Designed conversational flows and data structures for accurate intent recognition and context-aware response generation.</p>
+      <div class="project-tags">
+        <span class="project-tag">Transformers</span>
+        <span class="project-tag">NLP</span>
+        <span class="project-tag">Multilingual</span>
+        <span class="project-tag">Hugging Face</span>
+        <span class="project-tag">Streamlit</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/Kishor-M01/Multi_Lingual_chatbot" target="_blank" rel="noopener noreferrer" class="project-link">⬡ GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" style="padding-top:0;">
+  <div class="section-label">Expertise</div>
+  <div class="section-title">Skills &amp; Stack</div>
+  <p class="section-sub">Tools and technologies across data analytics, ML, and software development.</p>
+
+  <div class="skills-grid">
+    <div class="skill-group">
+      <h4>Data Analytics &amp; Visualization</h4>
+      <ul>
+        <li>Power BI</li>
+        <li>Tableau</li>
+        <li>Advanced Excel</li>
+        <li>Statistical Analysis</li>
+        <li>Data Cleaning &amp; Transformation</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <h4>Programming &amp; Databases</h4>
+      <ul>
+        <li>Python</li>
+        <li>C &amp; Java</li>
+        <li>SQL Fundamentals</li>
+        <li>HTML</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <h4>AI / Machine Learning</h4>
+      <ul>
+        <li>TensorFlow / Keras</li>
+        <li>Transfer Learning</li>
+        <li>OpenCV (Computer Vision)</li>
+        <li>Hugging Face Transformers</li>
+        <li>XGBoost</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <h4>Cloud &amp; Tools</h4>
+      <ul>
+        <li>Google Cloud Platform (GCP)</li>
+        <li>Git / GitHub</li>
+        <li>Jupyter Notebooks</li>
+        <li>Streamlit</li>
+        <li>Kaggle API</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" style="padding-top:0;">
+  <div class="section-label">Academic</div>
+  <div class="section-title">Education</div>
+  <p class="section-sub">Strong academic foundation with consistent high performance across all levels.</p>
+
+  <div class="edu-grid">
+    <div class="edu-card">
+      <h4>B.E. Information Science &amp; Engineering</h4>
+      <div class="school">Don Bosco Institute of Technology, Bengaluru</div>
+      <div class="meta">2022 – 2026</div>
+      <div class="score">CGPA: 9.01</div>
+    </div>
+    <div class="edu-card">
+      <h4>Pre-University Course (PCMB)</h4>
+      <div class="school">SBGNS Rural Composite PU College, Agalagurki</div>
+      <div class="meta">2020 – 2022</div>
+      <div class="score">85.67%</div>
+    </div>
+    <div class="edu-card">
+      <h4>SSLC (10th Grade)</h4>
+      <div class="school">New Horizon English School, Chikkaballapur</div>
+      <div class="meta">2020</div>
+      <div class="score">86.72%</div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:3rem;">Certifications &amp; Hackathons</div>
+  <div class="cert-list" style="margin-top:1rem;">
+    <div class="cert-item">
+      <span>🏆 Google Cloud Gen AI Academy — APAC Hackathon Participant (built real-world GCP solutions)</span>
+      <span class="cert-date">May 2026</span>
+    </div>
+    <div class="cert-item">
+      <span>🎓 IBM SkillsBuild: Generative AI in Action</span>
+      <span class="cert-date">Nov 2025</span>
+    </div>
+    <div class="cert-item">
+      <span>🎓 IBM SkillsBuild: AI Fundamentals &amp; Getting Started with AI</span>
+      <span class="cert-date">Nov 2025</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="padding-top:0;">
+  <div class="contact-box">
+    <h3>Let's Build Something Together</h3>
+    <p>Open to data analytics roles, AI/ML internships, and full-time opportunities. Ready to relocate.</p>
+    <div class="contact-links">
+      <a href="mailto:kishor.m.kittu@gmail.com" class="contact-link">✉ kishor.m.kittu@gmail.com</a>
+      <a href="tel:+916361532124" class="contact-link">📞 +91 6361532124</a>
+      <a href="https://linkedin.com/in/kishorm-8a2715352" target="_blank" rel="noopener noreferrer" class="contact-link">in LinkedIn</a>
+      <a href="https://github.com/Kishor-M01" target="_blank" rel="noopener noreferrer" class="contact-link">⬡ GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Kishor M · Bengaluru · Built with HTML &amp; CSS</p>
+</footer>
+
+</body>
+</html>
